@@ -27,7 +27,7 @@ public class ServidorItensCardapio {
             // passando os bytes da string
             byte[] bytes = json.getBytes();
 
-            //
+            // pegando o exchange response headers
             Headers responseHeaders = exchange.getResponseHeaders();
 
             // Configurando o cabeçalho de UTF-8
@@ -36,7 +36,7 @@ public class ServidorItensCardapio {
             // enviando o status e o numero de bytes
             exchange.sendResponseHeaders(200, bytes.length);
             
-
+            // tentando pegar o corpo e escrevendo
             try(OutputStream responseBody = exchange.getResponseBody()){
                 responseBody.write(bytes);
             }

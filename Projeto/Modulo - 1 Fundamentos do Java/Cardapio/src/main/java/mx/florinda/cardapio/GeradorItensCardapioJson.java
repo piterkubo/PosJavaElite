@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-public class GeradorItensCardapioJsonGeradorItensCardapioJson {
+public class GeradorItensCardapioJson {
     
     public static void main(String[] args) throws IOException{
 
