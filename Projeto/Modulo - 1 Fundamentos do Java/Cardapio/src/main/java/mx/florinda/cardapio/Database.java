@@ -91,6 +91,12 @@ public class Database {
 	}
 
 
+	public void adicionaItemCardapio(ItemCardapio itemCardapio){
+
+		itensPorId.put(itemCardapio.id(), itemCardapio);
+
+	}
+
 
 	
 
