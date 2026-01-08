@@ -1,24 +1,59 @@
 package mx.florinda.cardapio;
 
 
-import static mx.florinda.cardapio.ItemCardapio.CategoriaCardapio.ENTRADAS;
-import static mx.florinda.cardapio.ItemCardapio.CategoriaCardapio.PRATOS_PRINCIPAIS;
-import static mx.florinda.cardapio.ItemCardapio.CategoriaCardapio.SOBREMESAS;
+
+import static mx.florinda.cardapio.ItemCardapio.CategoriaCardapio.*;
 
 import java.math.BigDecimal;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.xml.crypto.Data;
 
 
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         
+        
 
-        Database database = new Database();
+        Database database = new SQLDatabase();
+
+        // chamando a lista de itens de cardapio
+
+        List<ItemCardapio> listaItensCardapio = database.listaItensCardapio();
+
+        listaItensCardapio.forEach(System.out::println);
+
+
+        
+
+        // chamando o database para verificar o total de itens 
+
+        int totalItensCardapio = database.totalItensCardapio();
+
+        IO.println(totalItensCardapio);
+
+
+
+
+        // Inserindo informações no database
+
+       var novoItem = new ItemCardapio(4L, "Tacos de Carnita", "Tacos recheados com carne tenra", ItemCardapio.CategoriaCardapio.PRATOS_PRINCIPAIS, new BigDecimal(25.99), new BigDecimal(0));
+
+    
+       database.adicionaItemCardapio(novoItem);
+
+        
+    }
+}
+
+
+/*        Database database = new InMemoryDatabase();
 
         
 
@@ -57,7 +92,7 @@ public class Main {
         categoriaCardapio2.forEach(System.out::println);*/
 
 
-        IO.println("---------------------------------------------------------");
+       /*  IO.println("---------------------------------------------------------");
         IO.println("Usando o Enum Set para manter a ordem das categorias");
 
         Set<ItemCardapio.CategoriaCardapio> categoriaCardapio3 = EnumSet.of(SOBREMESAS,ENTRADAS);
@@ -190,7 +225,7 @@ public class Main {
 
 
 
-        database.imprimirRastroAuditoriaPrecos();
+        database.imprimirRastroAuditoriaPrecos();*/
 
 
 
@@ -253,11 +288,4 @@ public class Main {
        IO.println("-----------------Usando foreach----------------");
        IO.println();
 
-       itens.forEach(System.out:: println);*/
-
-
-
-
-        
-    }
-}
+       itens.forEach(System.out:: println);*/ 

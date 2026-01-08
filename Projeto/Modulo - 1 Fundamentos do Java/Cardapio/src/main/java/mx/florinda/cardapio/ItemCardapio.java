@@ -7,8 +7,10 @@ public record ItemCardapio(Long id, String nome, String descricao, CategoriaCard
 			BigDecimal precoComDescricao) 
 {
 
+
+
 	public ItemCardapio alterarPreco(BigDecimal novoPreco){
-		return new ItemCardapio(id, nome,descricao,categoria,novoPreco, precoComDescricao);
+		return new ItemCardapio(id, nome, descricao, categoria, novoPreco, precoComDescricao);
 	}
 	
 	

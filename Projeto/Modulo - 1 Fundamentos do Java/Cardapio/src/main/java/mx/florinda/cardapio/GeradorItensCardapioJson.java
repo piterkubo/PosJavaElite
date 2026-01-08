@@ -12,7 +12,7 @@ public class GeradorItensCardapioJson {
     public static void main(String[] args) throws IOException{
 
         
-        Database database = new Database();
+        Database database = new InMemoryDatabase();
 
         List<ItemCardapio> itensCardapio = database.listaItensCardapio();
 

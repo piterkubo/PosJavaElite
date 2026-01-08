@@ -20,7 +20,7 @@ public class ServidorItensCardapioComSocket {
 
     //injetando database
 
-    private static final Database database = new Database();
+    private static final Database database = new SQLDatabase();
     
     public static void main(String[] args) throws Exception{
 
