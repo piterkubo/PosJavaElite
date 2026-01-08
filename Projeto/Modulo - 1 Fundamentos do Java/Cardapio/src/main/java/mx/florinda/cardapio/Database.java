@@ -1,28 +1,22 @@
 package mx.florinda.cardapio;
 
-import static mx.florinda.cardapio.ItemCardapio.CategoriaCardapio.*;
-
 import java.math.BigDecimal;
-
-
-
-
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class Database {
 
-	private final Map <Long, ItemCardapio> itensPorId = new HashMap<>();
+	private final Map <Long, ItemCardapio> itensPorId = new ConcurrentSkipListMap<>();
 	private final Map<ItemCardapio, BigDecimal>auditoriaPrecos = new IdentityHashMap<>();
 
 
 	public Database(){   // construtores
 
-		var refrescoDoChaves = new ItemCardapio(1l, "Refresco do Chaves",
+		/*var refrescoDoChaves = new ItemCardapio(1l, "Refresco do Chaves",
         		"Suco de limão que parece de tamarindo, mas tem gosto de groselha",
         		BEBIDAS, new BigDecimal("2.99"), null);
 		
@@ -41,7 +35,7 @@ public class Database {
 		var sanduichePresunto = new ItemCardapio(3l, "Sanduiche de Presunto",
         		"Soboroso Sanduiche de Presunto",PRATOS_PRINCIPAIS, new BigDecimal("7.99"), null);
 		
-		itensPorId.put(sanduichePresunto.id(),sanduichePresunto);
+		itensPorId.put(sanduichePresunto.id(),sanduichePresunto);*/
 
 
 	}
@@ -99,38 +93,5 @@ public class Database {
 
 
 	
-
-
-
-
-	/*public List<ItemCardapio> listaDeItensCardapio(){
-		
-		ArrayList<ItemCardapio> itens = new ArrayList<>();
-		
-		var refrescoDoChaves = new ItemCardapio(1l, "Refresco do Chaves",
-        		"Suco de limão que parece de tamarindo, mas tem gosto de groselha",
-        		BEBIDAS, new BigDecimal("2.99"), null);
-		
-		itens.add(refrescoDoChaves);
-		
-		var  Pirulito = new ItemCardapio(2l, "Perulito da Chiquinha",
-        		"Doce",	SOBREMESAS, new BigDecimal("1.99"), null);
-		
-		itens.add(Pirulito);
-		
-		
-		var SanduichePresunto = new ItemCardapio(3l, "Sanduiche de Presunto",
-        		"Soboroso Sanduiche de Presunto",PRATOS_PRINCIPAIS, new BigDecimal("7.99"), null);
-		
-		itens.add(SanduichePresunto);
-		
-			
-		
-		
-		
-		
-		return itens;
-		
-	}*/
 	
 }

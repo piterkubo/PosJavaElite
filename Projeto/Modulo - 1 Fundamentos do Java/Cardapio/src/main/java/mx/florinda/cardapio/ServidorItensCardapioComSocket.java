@@ -55,12 +55,11 @@ public class ServidorItensCardapioComSocket {
 
 
         }
-
         
-        
-         
 
     }
+
+
 
     private static void TrataRequisicao(Socket clientSocket) {
         
@@ -79,7 +78,9 @@ public class ServidorItensCardapioComSocket {
                 data = clienteIS.read();
                 requestBuilder.append((char)data);
             }
+
             while(clienteIS.available() > 0);
+
         
             String request = requestBuilder.toString();
 
@@ -90,6 +91,8 @@ public class ServidorItensCardapioComSocket {
             IO.println("\n\nChegou um novo Request");
 
             Thread.sleep(250); 
+
+
             
             // Criando um cabeçalho para as requisições GET/POST
 
@@ -134,8 +137,7 @@ public class ServidorItensCardapioComSocket {
                 //lendo o arquivo json
                 String json =  Files.readString(path);
 
-
-                
+               
 
                 // Criando o cabeçalho 
                 clientOut.println("HTTP/1.1 200 OK");                
@@ -211,6 +213,10 @@ public class ServidorItensCardapioComSocket {
                 Gson gson = new Gson();
 
                 ItemCardapio novoItemCardapio = gson.fromJson(body, ItemCardapio.class);              
+
+
+                IO.println(novoItemCardapio);
+
 
                 // Enviando via post               
                 database.adicionaItemCardapio(novoItemCardapio);                              
