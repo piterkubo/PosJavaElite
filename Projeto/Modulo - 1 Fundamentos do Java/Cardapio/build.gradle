@@ -1,5 +1,17 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'mx.florinda.cardapio.TesteLocale'
+}
+
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
 }
 
 group = 'mx.florinda'
