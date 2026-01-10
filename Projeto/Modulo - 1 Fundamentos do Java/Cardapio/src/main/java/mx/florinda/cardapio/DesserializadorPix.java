@@ -1,0 +1,23 @@
+package mx.florinda.cardapio;
+
+import java.io.*;
+
+public class DesserializadorPix {
+
+    static void main(String[] args) throws Exception {
+
+        try(var fis = new FileInputStream("pix.ser");
+            var ois = new ObjectInputStream(fis);) {
+
+            Pix pix = (Pix)ois.readObject();
+
+            System.out.println(pix);
+            System.out.println(pix.getChaveDestino());
+
+
+
+        }
+
+    }
+
+}

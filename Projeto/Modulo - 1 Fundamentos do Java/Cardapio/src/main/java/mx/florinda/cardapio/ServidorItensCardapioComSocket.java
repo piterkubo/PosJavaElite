@@ -1,11 +1,10 @@
 package mx.florinda.cardapio;
 
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.NumberFormat;
@@ -172,19 +171,65 @@ public class ServidorItensCardapioComSocket {
                     // pegando uma lista de cardapio                
                     List<ItemCardapio> listaItensCardapio = database.listaItensCardapio();
 
-                    // criando gson
 
-                    Gson gson = new Gson();
+                    // preparando o ambiente para serialização em java
+                    String mediaType = "aplication/json/";
 
-                    String json = gson.toJson(listaItensCardapio);
+
+                    for(int i = 1; i < requestLineAndHeadersChunks.length; i++){
+
+                        String header = requestLineAndHeadersChunks[i];
+
+                        logger.fine(header);
+
+                        if(header.contains("Accept")){
+
+                            mediaType = header.replace("Accept: ", "");
+
+                            logger.fine(mediaType);
+                        }
+
+
+
+
+                    }
+
+
+                    byte[] body;
+
+                    if("application/x-java-serialized-object".equals(mediaType)){
+
+                        var bos = new ByteArrayOutputStream();
+
+                        var oos = new ObjectOutputStream(bos);
+
+                        oos.writeObject(listaItensCardapio);
+
+                        body = bos.toByteArray();
+                    }
+
+                    else{
+
+
+                        // criando gson
+
+                        Gson gson = new Gson();
+
+                        String json = gson.toJson(listaItensCardapio);
+
+                        body = json.getBytes(StandardCharsets.UTF_8);
+
+                    }
+
+
 
 
 
                     // Criando o cabeçalho 
-                    clientOut.println("HTTP/1.1 200 OK");                
-                    clientOut.println("Content-type: application/json; charset=UTF-8");
-                    clientOut.println();
-                    clientOut.println(json);
+                    clienteOS.write("HTTP/1.1 200 OK\r\n".getBytes(StandardCharsets.UTF_8));
+                    clienteOS.write(("Content-type:" + mediaType + " application/json; charset=UTF-8\r\n\r\n").getBytes(StandardCharsets.UTF_8));
+                    clienteOS.write(body);
+
 
 
                 }

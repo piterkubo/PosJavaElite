@@ -9,8 +9,8 @@ public class ClienteItensCardapio {
     
     public static void main(String [] args) throws Exception {
 
-        URI  viaItensCardapioURI = URI.create("http://localhost:8000/itensCardapio.json");
-
+        //URI  viaItensCardapioURI = URI.create("http://localhost:8000/itensCardapio.json");itens-cardapio
+        URI  viaItensCardapioURI = URI.create("http://localhost:8000/itens-cardapio");
         try(HttpClient client = HttpClient.newBuilder().build()){
 
             // usando o pacote javanet.http
