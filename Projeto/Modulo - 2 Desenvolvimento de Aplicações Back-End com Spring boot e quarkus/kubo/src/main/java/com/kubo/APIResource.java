@@ -5,7 +5,8 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/kubo") // representa um ponto de entrada da aplicação
 @Produces(MediaType.APPLICATION_JSON) //stilo como o valor será lancado na API
 @Consumes(MediaType.APPLICATION_JSON) //produz informações textplain e consome outros formatos
-public class APIRecource {
+
+public class APIResource {
 
     private int num = 0;
 
@@ -31,8 +32,11 @@ public class APIRecource {
     @PUT
     public void alterarNum(int num){
 
-       this.num = num;
+        this.num = num;
     }
 
 
 }
+
+
+
