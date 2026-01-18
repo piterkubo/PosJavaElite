@@ -1,6 +1,10 @@
 package com.kubo;
 
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
+
+
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,6 +22,15 @@ public class PessoaResource {
     public List<Pessoa> getPessoa(){
         return Pessoa.listAll();
     }
+
+
+    @GET
+    @Path("FindByAnoNascimento")
+    public List<Pessoa> FindByAnoNascimento(@QueryParam("anoNascimento")int anoNascimento){
+
+        return Pessoa.findByAno(anoNascimento);
+    }
+
 
 
     @POST
