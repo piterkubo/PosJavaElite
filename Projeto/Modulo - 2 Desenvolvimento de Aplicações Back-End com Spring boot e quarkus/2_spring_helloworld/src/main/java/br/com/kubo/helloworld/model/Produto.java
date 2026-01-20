@@ -7,6 +7,14 @@ public class Produto {
     private double preco;
 
 
+    public Produto(){super();}
+
+    public Produto(int id, String nome, double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+    }
+
     public int getId() {
         return id;
     }
