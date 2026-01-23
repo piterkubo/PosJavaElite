@@ -39,7 +39,7 @@ public class ProdutoController {
 
     @GetMapping("produtos/sort")
     public ResponseEntity<List<Produto>> recuperarOrdenado(@RequestParam(name = "order", required = false) String order)
-    {  IO.println("order = " + order);
+    {  System.out.println("order = " + order);
         if(order == null){
             return ResponseEntity.ok(database);
         }
