@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 public class SubscriptionId {
 
     @ManyToOne // incluindo a relaçaõ de N to 1
-    @JoinColumn(name = "user_user_id") // name column do banco
+    @JoinColumn(name = "subscribed_user_id") // name column do banco
     private User user;
 
     @ManyToOne // incluindo a relaçaõ de N to 1
