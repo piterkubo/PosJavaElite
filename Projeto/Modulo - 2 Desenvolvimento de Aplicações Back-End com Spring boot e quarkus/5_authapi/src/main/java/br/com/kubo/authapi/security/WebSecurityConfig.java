@@ -8,12 +8,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
+@Configuration // classe de configuração
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    @Bean 
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{ //criando classe com filtro de 
         http.csrf( (csrf) -> {
                     csrf.disable();
                 })
