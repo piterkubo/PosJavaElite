@@ -24,6 +24,8 @@ public class PagamentoResource {
 
   @PUT
   @Path("/{id}")
+
+  // usando o panache reativo
   public  Uni<Pagamento> confirma(Long id) {
     return Panache.withTransaction(() ->
             Pagamento.<Pagamento>findById(id)
