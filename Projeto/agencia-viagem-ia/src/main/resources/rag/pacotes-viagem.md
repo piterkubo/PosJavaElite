@@ -1,4 +1,4 @@
-### Pacote aventura Amozonia
+### Pacote Aventura Amazonia
 
 * Duração: 7 dias e 6 noites.
 * Atividades: Focagem noturna de jacaré, caminhada na selva, visita a comunidade ribeirinha.

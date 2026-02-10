@@ -9,14 +9,11 @@ import io.quarkiverse.langchain4j.RegisterAiService;
 public interface TavelAgentAssistant {
 
     /**
-     * O método 'chat' recebe a mensagem do usuario e retorna a resposta do LLM.
-     * @param userMessage A mensagem do usuario.
-     * @return A resposta gerada pelo modelo da linguagem.
-     *
-    */
-
+     * O método 'chat' recebe a mensagem do usuário e retorna a resposta do LLM.
+     * @param userMessage A mensagem do usuário.
+     * @return A resposta gerada pelo modelo de linguagem.
+     */
     String chat(String userMessage);
-
 
 
 }
