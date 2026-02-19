@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 // function
 /*export default function Page() {
@@ -6,22 +6,14 @@
 }*/
 
 
-import { MeuNome } from "../components/MeuNome";
-import { Hobbis } from "../components/Hobbis";
-import {Imagem} from "../components/Imagem";
-
-
-//ArrowFunction
-
-const Page = () => (
+const Page =  () => (
+  
   <div>
-    <MeuNome name={"PITER"} 
-    age = {40} 
-    birthDate = {new Date(1985, 3, 18)}/>  
-    <Hobbis/>
-    <Imagem />
-
+    <Link href="/nivel-0/piter">Pagina do Piter</Link>
   </div>
+    
+
+
 );
 
 

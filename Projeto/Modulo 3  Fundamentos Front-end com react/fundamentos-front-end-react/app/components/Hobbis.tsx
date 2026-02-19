@@ -11,7 +11,7 @@ export const Hobbis = () => {
     const myhobbis = [...outrosHobbis, ...novosHobbis] 
 
     return (
-    <>
+    <div>
         <p>Este são meus hobbis</p>
         <ul className= "list-disc">
             <li className= "list-bold">{hobbisPreferido}</li>
@@ -22,7 +22,7 @@ export const Hobbis = () => {
 
         </ul>  
 
-    </>  
+    </div>  
 );
 
 
