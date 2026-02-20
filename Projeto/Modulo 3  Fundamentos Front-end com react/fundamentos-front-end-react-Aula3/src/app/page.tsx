@@ -22,7 +22,7 @@ export default function Home() {
           </li>
           <li>
             <Link className="underline" href="/aula-3/server-side">
-              Aula 3 -Server-side
+              Aula 3 - Server-side
             </Link>
           </li>
           <li>
@@ -57,6 +57,9 @@ export default function Home() {
           </li>
         </ol>
       </main>
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        <p>Fundamentos de Front-End com React - 2025</p>
+      </footer>
     </div>
   );
 }
