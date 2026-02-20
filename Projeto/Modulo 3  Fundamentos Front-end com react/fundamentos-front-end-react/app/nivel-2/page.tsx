@@ -1,4 +1,5 @@
 import { ContadorGlobal} from "../components/ContadorGlobal";
+import { ValorContadorGlobal } from "../components/ValorContadorGlobal";
 
 const Page =  () => (
   
@@ -6,6 +7,7 @@ const Page =  () => (
 
     <h1 className="text-4xl font-bold">Pagina Nivel 2</h1>
       <ContadorGlobal/>
+      <ValorContadorGlobal/>
 
  </div>
 

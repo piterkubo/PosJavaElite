@@ -1,6 +1,17 @@
-import {Children, createContext, ReactNode} from 'react';
+"use client";
 
-export const ContadorContext = createContext({
+import {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState} from 'react';
+
+
+
+type ContadorType = number | null;
+
+type ContadorContextType = {
+    contador: ContadorType;
+    setContador: Dispatch<SetStateAction<ContadorType>>
+}
+
+export const ContadorContext = createContext<ContadorContextType>({
     contador:0,
     setContador:() => {},
 });
@@ -8,7 +19,34 @@ export const ContadorContext = createContext({
 // provider irar dar suporte para ler os valores
 export default function ContadorProvider ({children} : {children:ReactNode})
 {
-    return <ContadorContext.Provider value={{contador:0, setContador:() =>{}}}>
+    const [contador,setContador] = useState<ContadorType>(null);
+    
+    
+    useEffect(() =>{
+
+        const contadorLocalStorage = localStorage.getItem("contador") ?? 0;
+        if(contadorLocalStorage !== null){
+            setContador(+contadorLocalStorage);
+        }
+
+    }, [])
+
+
+    useEffect(() =>{
+
+
+        if(contador){
+
+             localStorage.setItem("contador", contador.toString());
+
+
+        }
+       
+    }, [contador])
+
+    
+    
+    return <ContadorContext.Provider value={{contador, setContador}}>
         {children}
         </ContadorContext.Provider>
 };
