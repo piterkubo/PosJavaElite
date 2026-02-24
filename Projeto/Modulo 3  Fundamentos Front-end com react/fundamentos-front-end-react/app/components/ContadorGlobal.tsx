@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { ContadorContext } from "../context/ContatorContext";
+import { ContadorContext } from "../../context/ContatorContext";
 import { Button } from "./Button";
 
 

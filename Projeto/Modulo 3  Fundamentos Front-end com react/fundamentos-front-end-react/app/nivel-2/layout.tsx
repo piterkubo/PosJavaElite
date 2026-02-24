@@ -1,4 +1,4 @@
-import ContadorProvider, { ContadorContext } from "../context/ContatorContext";
+import ContadorProvider, { ContadorContext } from "../../context/ContatorContext";
 
 export default function Layout({
   children,
