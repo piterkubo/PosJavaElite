@@ -1,6 +1,8 @@
+// app/api/auth/route.ts
 import { NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 
+const SECRET = 'segreto-bem-seguro'
 
 export async function POST(req: Request) {
   const { email, password } = await req.json()
@@ -8,7 +10,7 @@ export async function POST(req: Request) {
   // Simulação simples
   if (email === 'admin@example.com' && password === '123456') {
     const user = { email, role: 'admin' }
-    const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: '1h' })
+    const token = jwt.sign(user, SECRET, { expiresIn: '1h' })
 
     return NextResponse.json({ token, user })
   }

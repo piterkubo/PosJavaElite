@@ -1,3 +1,4 @@
+// context/AuthContext.tsx
 'use client'
 
 import { createContext, useState, useContext, useEffect } from 'react'
@@ -18,24 +19,16 @@ const AuthContext = createContext({} as AuthContextProps)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
-
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-
-    const savedUser = localStorage.getItem('user')
     const savedToken = localStorage.getItem('token')
-    
-    
+    const savedUser = localStorage.getItem('user')
     if (savedToken && savedUser) {
-        
-        setUser(JSON.parse(savedUser))
-        setToken(savedToken)
-      
+      setToken(savedToken)
+      setUser(JSON.parse(savedUser))
     }
   }, [])
-
-
 
   const login = async (email: string, password: string) => {
     const res = await fetch('/api/auth', {
@@ -43,26 +36,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       body: JSON.stringify({ email, password }),
     })
 
-
     const data = await res.json()
 
     if (res.ok) {
-      setUser(data.user)
       setToken(data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
+      setUser(data.user)
       localStorage.setItem('token', data.token)
-      
+      localStorage.setItem('user', JSON.stringify(data.user))
     } else {
       throw new Error(data.message)
     }
   }
 
   const logout = () => {
-    setUser(null)
     setToken(null)
-    localStorage.removeItem('user')
+    setUser(null)
     localStorage.removeItem('token')
-    
+    localStorage.removeItem('user')
   }
 
   return (

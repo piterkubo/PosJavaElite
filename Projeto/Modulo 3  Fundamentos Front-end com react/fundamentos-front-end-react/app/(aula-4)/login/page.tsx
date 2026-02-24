@@ -1,4 +1,3 @@
-// app/login/page.tsx
 'use client'
 
 import { useState } from 'react'
@@ -18,10 +17,9 @@ export default function LoginPage() {
       await login(email, password)
       router.push('/dashboard')
     } catch (err) {
-      console.error(err);
+      alert('Login falhou')
     }
   }
-
   return (    
         <div className='grid gap-y-4 w-96 p-4 border border-gray-900 rounded'>
             <h1 className='text-3xl font-bold'>Login</h1>

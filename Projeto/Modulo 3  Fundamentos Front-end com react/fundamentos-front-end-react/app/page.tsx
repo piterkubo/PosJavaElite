@@ -36,7 +36,7 @@ export default function Home() {
             </Link>
           </li>
           <li>
-            <Link className="underline" href="/aula-4/login">
+            <Link className="underline" href="/login">
               Aula 4 - Login
             </Link>
           </li>
