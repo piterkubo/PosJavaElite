@@ -1,19 +1,42 @@
-// app/api/auth/route.ts
-import { NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
+import { NextResponse } from "next/server";
 
-const SECRET = 'segreto-bem-seguro'
+import { SignJWT } from "jose";
+
+import { User } from "@/context/aula-4/AuthContext";
+
+const alg = process.env.JWT_ALGORITHM!;
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+const fakeUsers = ["admin@example.com", "user@example.com"];
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json()
+  const { email, password } = await req.json();
 
-  // Simulação simples
-  if (email === 'admin@example.com' && password === '123456') {
-    const user = { email, role: 'admin' }
-    const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: '1h' })
+  if (fakeUsers.includes(email)) {
+    if (password === "123456") {
+      const user: User = { email, role: email.split("@")[0] };
 
-    return NextResponse.json({ token, user })
+      const token = await new SignJWT(user)
+        .setProtectedHeader({ alg })
+        .setExpirationTime("1h")
+        .sign(secret);
+
+      const response = NextResponse.json({ user });
+
+      response.cookies.set("token", token, {
+        secure: true,
+        path: "/",
+        maxAge: 60 * 60, // 1 hora
+      });
+
+      return response;
+    } else {
+      return NextResponse.json({ message: "Senha incorreta" }, { status: 401 });
+    }
+  } else {
+    return NextResponse.json(
+      { message: "Usuário não encontrado" },
+      { status: 401 }
+    );
   }
-
-  return NextResponse.json({ message: 'Credenciais inválidas' }, { status: 401 })
 }

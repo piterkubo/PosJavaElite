@@ -1,65 +1,93 @@
 // context/AuthContext.tsx
-'use client'
+"use client";
 
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useState, useContext, useEffect } from "react";
 
-type User = {
-  email: string
-  role: 'user' | 'admin'
-}
+import { useRouter } from "next/navigation";
+
+import Cookies from "js-cookie";
+
+import { decodeJwt } from "jose";
+
+export type User = {
+  email: string;
+  role: "user" | "admin";
+};
 
 type AuthContextProps = {
-  user: User | null
-  token: string | null
-  login: (email: string, password: string) => Promise<void>
-  logout: () => void
-}
+  token: string | null;
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+};
 
-const AuthContext = createContext({} as AuthContextProps)
+const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [token, setToken] = useState<string | null>(null)
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('token')
-    const savedUser = localStorage.getItem('user')
-    if (savedToken && savedUser) {
-      setToken(savedToken)
-      setUser(JSON.parse(savedUser))
+    const savedToken = Cookies.get("token");
+
+    if (savedToken) {
+      const { email, role } = decodeJwt(savedToken) as unknown as User;
+
+      setToken(savedToken);
+      setUser({ email, role });
     }
-  }, [])
+  }, []);
 
   const login = async (email: string, password: string) => {
-    const res = await fetch('/api/auth', {
-      method: 'POST',
+    const res = await fetch("/api/auth", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
-    })
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    const data = await res.json()
+    const data = await res.json();
+
+    /*if (res.ok) {
+      setUser(data.user);
+    } else {
+      throw new Error(data.message);
+    }*/
 
     if (res.ok) {
-      setToken(data.token)
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-    } else {
-      throw new Error(data.message)
+    const savedToken = Cookies.get("token"); // 👈 pega o cookie
+
+    if (savedToken) {
+      const { email, role } = decodeJwt(savedToken) as unknown as User;
+
+      setToken(savedToken);
+      setUser({ email, role });
     }
+  } else {
+    throw new Error(data.message);
   }
+
+
+
+  };
 
   const logout = () => {
-    setToken(null)
-    setUser(null)
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-  }
+    setToken(null);
+    setUser(null);
+
+    Cookies.remove("token");
+
+    router.push("/login");
+  };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);
