@@ -1,15 +1,29 @@
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-     <h1>Bem Vindo !</h1>
-     <p>Telas Disponiveis</p>
+    <div className="grid gap-y-4" >
+
+     <h1 className="text-4xl">Bem Vindo !</h1>
+     <div>
+        <p className="font-bold">Telas Disponiveis</p>
+    
+        <ul className="list-disc ml-6 underline">
+            <li>
+              <Link href="/register">Cadastro</Link>
+            </li>
+
+            <li>
+              <Link href="/login">Login</Link>
+            </li>
+
+            <li>
+              <Link href="/tasks">Tasks</Link>
+            </li>
+
+        </ul>
+     </div>
      
-     <ul>
-        <li>...</li>
-        <li>...</li>
-        <li>...</li>
-     </ul>
     </div>
   );
 }
