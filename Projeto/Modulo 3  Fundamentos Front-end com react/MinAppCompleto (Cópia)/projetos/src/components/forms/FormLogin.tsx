@@ -1,20 +1,20 @@
   "use client";
 
 import {FC, useActionState, useState} from "react"
-import { FormInput } from "./FormInput";
-import { FormButton } from "./FormButton";
-import { FormError } from "./FormError";
+import { FormInput } from "../FormInput";
+import { FormButton } from "../FormButton";
+import { FormError } from "../FormError";
 
 
-type FormRegisterProps = {
+type FormLoginProps = {
   action:(_: string, formData: FormData) => Promise<string>;
 };
 
 
-export const  FormRegister: FC<FormRegisterProps> = ({action}) => {
+export const  FormLogin: FC<FormLoginProps> = ({action}) => {
   
   // criando variaveis com as hooks
-  const [username, setUsername] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
@@ -29,12 +29,7 @@ export const  FormRegister: FC<FormRegisterProps> = ({action}) => {
         
         <form className="grid gap-y-6" action={formAction}>
             
-            
-            <FormInput 
-            id="username" 
-            label="Usuário" 
-            value={username} 
-            setValue={setUsername}/>
+                    
 
             <FormInput
             id="email" 
@@ -49,7 +44,7 @@ export const  FormRegister: FC<FormRegisterProps> = ({action}) => {
             setValue={setPassword}
             type={"password"}/>
            
-            <FormButton>Cadastrar</FormButton>
+            <FormButton>Login</FormButton>
 
         </form>
       </>

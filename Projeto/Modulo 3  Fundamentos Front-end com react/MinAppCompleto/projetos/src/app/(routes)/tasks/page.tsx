@@ -1,4 +1,132 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+
+import { FormTasks } from "@/components/forms/FormTasks";
+import { TaskCard } from "@/components/TaskCard";
+
+import { fetchWithToken } from "@/lib/fetchWithToken";
+
+import {
+  handleCompleteTask,
+  handleCreateTask,
+  handleDeleteTask,
+} from "./actions";
+
+const PAGE_TITLE = "Tasks";
+
+export const metadata: Metadata = {
+  title: PAGE_TITLE,
+};
+
+type TaskType = {
+  _id: string;
+  userId: string;
+  title: string;
+  completed: boolean;
+  deleted: boolean;
+  createDate: string;
+  modifyDate: string;
+};
+
+export default async function Tasks() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) return null;
+
+  const { tasks }: { tasks: TaskType[] } = await fetchWithToken(
+    `${process.env.BACKEND_URL}/tasks`,
+    token,
+    {
+      next: {
+        tags: ["get-tasks"],
+      },
+    }
+  );
+
+  return (
+    <>
+      <h1 className="text-4xl text-center font-bold">Tasks</h1>
+
+      <FormTasks action={handleCreateTask} />
+
+      <ul className="grid gap-y-3">
+        {tasks
+          .reverse()
+          .sort((a, b) => (!a.completed && b.completed ? -1 : 1))
+          .map((task) => (
+            <TaskCard
+              key={task._id}
+              id={task._id}
+              completed={task.completed}
+              completeAction={handleCompleteTask}
+              deleteAction={handleDeleteTask}
+            >
+              {task.title}
+            </TaskCard>
+          ))}
+      </ul>
+    </>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { FormTasks } from "@/components/forms/FormTasks";
+import { fetchWithToken } from "@/lib/fetchWithToken";
+import { Metadata } from "next";
+import { cookies } from "next/headers";
 
 const PAGE_TITLE = "Tasks";
 
@@ -9,17 +137,113 @@ export const metadata: Metadata = {
   
 };
 
-export default function Tasks() {
+type taskType = 
+
+export default async function Tasks() {
  
+  const handleCreateTasks = async (initialState_:string, formData: FormData) => {
+        
+        'use server';
+    
+        
+        
+        const task = formData.get('email')?.toString();
+           
+        if(!task){
+          
+          return "Você precisa informar o titulo da task";
+    
+        }
+    
+       
+    
+        try{
+              
+          
+            const body = {
+            
+              title:task,
+            };
+
+            // pegando o cookie
+            const cookiesStore = await cookies();
+
+            const token = cookiesStore.get("token")?.value;
+
+
+
+
+            if(!token){
+          
+                return "Token não encontrado";
+    
+            }
+
+            else
+            {
+              
+              const {message}= await fetchWithToken(`${process.env.BACKEND_URL}/tasks`,
+              token,{
+                  method:'POST',
+                  body: JSON.stringify(body),
+                  
+    
+              });
+
+           
+    
+              return message;
+            }
+                
+            
+    
+            
+            
+         }
+    
+        catch{
+            console.error("handleCreateTasks failed");
+            return "Erro ao criar Task";
+        }
+    
+      };
+
+
+    // pegando o cookie
+        const cookiesStore = await cookies();
+
+        const token = cookiesStore.get("token")?.value;
+
+
+        if (!token) return null;
+
+        const {tasks}= await fetchWithToken(`${process.env.BACKEND_URL}/tasks`,
+              token);
+
   
+        
+
 
   return (
     <>
 
      <h1 className="text-4xl text-center font-bold">{PAGE_TITLE}</h1>
      
-     
+
+     <FormTasks action={handleCreateTasks}/>
+
+
+
+     <ul>
+      
+      {tasks.map((task) => (
+      
+       <li key={task._id}>tasks...</li>
+      
+      ))}
+       
+     </ul>
      
     </>
   );
-}
+}*/

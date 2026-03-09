@@ -1,9 +1,9 @@
   "use client";
 
 import {FC, useActionState, useState} from "react"
-import { FormInput } from "./FormInput";
-import { FormButton } from "./FormButton";
-import { FormError } from "./FormError";
+import { FormInput } from "../FormInput";
+import { FormButton } from "../FormButton";
+import { FormError } from "../FormError";
 
 
 type FormLoginProps = {
